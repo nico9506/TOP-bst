@@ -1,19 +1,19 @@
-import { Node } from "./Node";
+import { Node } from "./Node.js";
 
 export const Tree = class {
     /**
      * Binary Tree Data Structure
-     * @param {Array} bar - foo
+     * @param {Array} inputArray - Numeric array to create the binary tree after being sorted and filtered by unique values
      */
 
     #root;
 
     constructor(inputArray) {
-        this.#root = this.buildTree(inputArray);
+        this.#root = this.#buildTree(inputArray);
     }
 
     //Utils
-    buildTree(inputArray) {
+    #buildTree(inputArray) {
         /**
          * A function that constructs Balanced Binary Search Tree from
          * the given numeric array
@@ -69,17 +69,17 @@ export const Tree = class {
         if (node === null) {
             return;
         }
-        if (node.right !== null) {
-            prettyPrint(
-                node.right,
+        if (node.rightChild !== null) {
+            this.prettyPrint(
+                node.rightChild,
                 `${prefix}${isLeft ? "│   " : "    "}`,
                 false
             );
         }
         console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-        if (node.left !== null) {
-            prettyPrint(
-                node.left,
+        if (node.leftChild !== null) {
+            this.prettyPrint(
+                node.leftChild,
                 `${prefix}${isLeft ? "    " : "│   "}`,
                 true
             );

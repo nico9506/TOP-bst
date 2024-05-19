@@ -1,0 +1,23 @@
+{
+    "name": "top-bst",
+    "version": "1.0.0",
+    "description": "Binary search tree implementation",
+    "main": "testing.js",
+    "type": "module",
+    "scripts": {
+        "test": "node testing.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nico9506/TOP-bst.git"
+    },
+    "keywords": [
+        "bst"
+    ],
+    "author": "Nicolas Lopez",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/nico9506/TOP-bst/issues"
+    },
+    "homepage": "https://github.com/nico9506/TOP-bst#readme"
+}
