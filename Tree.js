@@ -60,7 +60,7 @@ export const Tree = class {
         return root;
     }
 
-    prettyPrint(node, prefix = "", isLeft = true) {
+    static prettyPrint(node, prefix = "", isLeft = true) {
         /**
          * Taken from:
          * theodinproject.com/lessons/javascript-binary-search-trees#project-solution
@@ -85,6 +85,23 @@ export const Tree = class {
             );
         }
     }
+
+    insert(value) {
+        let tmpNode = this.#root;
+        let parentNode;
+
+        while (null !== tmpNode) {
+            parentNode = tmpNode;
+            tmpNode =
+                value < tmpNode.data ? tmpNode.leftChild : tmpNode.rightChild;
+        }
+
+        value < parentNode.data
+            ? (parentNode.leftChild = new Node(value))
+            : (parentNode.rightChild = new Node(value));
+    }
+
+    deleteItem(value) {}
 
     // Getters and Setters
     get root() {
