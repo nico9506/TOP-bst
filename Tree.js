@@ -103,6 +103,27 @@ export const Tree = class {
 
     deleteItem(value) {}
 
+    find(value) {
+        /**
+         * @param {number} value - Input value to look for within the tree
+         * @returns {Node} Node which own value match with the provided one.
+         * Null in case the Tree does not include it
+         */
+
+        let tmpNode = this.#root;
+        let parentNode;
+
+        while (null !== tmpNode) {
+            if (value === tmpNode.data) return tmpNode;
+
+            parentNode = tmpNode;
+            tmpNode =
+                value < tmpNode.data ? tmpNode.leftChild : tmpNode.rightChild;
+        }
+
+        return null;
+    }
+
     // Getters and Setters
     get root() {
         return this.#root;

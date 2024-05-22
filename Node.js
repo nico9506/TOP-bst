@@ -16,6 +16,12 @@ export const Node = class {
         this.#rightChild = rightChild;
     }
 
+    toString() {
+        return `val:${this.#data} [lCh:${
+            null === this.#leftChild ? null : this.#leftChild.data
+        }, rCh:${null === this.#rightChild ? null : this.#rightChild.data}]`;
+    }
+
     // Getters and Setters
     get data() {
         return this.#data;
