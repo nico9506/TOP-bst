@@ -27,6 +27,8 @@ export const Tree = class {
             new Set(inputArray.sort((a, b) => a - b))
         );
 
+        console.log(sortedArray);
+
         const mid = Math.floor(sortedArray.length / 2);
         const root = new Node(sortedArray[mid]);
 
@@ -101,7 +103,105 @@ export const Tree = class {
             : (parentNode.rightChild = new Node(value));
     }
 
-    deleteItem(value) {}
+    deleteItem(value) {
+        /**
+         * @param {number} value - Numeric value (node) to delete
+         * @returns {Node} Parent node if the operation was performed, otherwise null
+         */
+        const nodeToDelete = this.find(value);
+
+        // Node does not exist in bTree
+        if (null === nodeToDelete) return null;
+
+        const leftChild = nodeToDelete.leftChild;
+        const rightChild = nodeToDelete.rightChild;
+        const parentNode = this.#findParentNode(value);
+
+        // No-branches node (leaf node)
+        // Only remove node
+        if (null === leftChild && null === rightChild) {
+            if (
+                null !== parentNode.leftChild &&
+                value === parentNode.leftChild.data
+            )
+                parentNode.leftChild = null;
+
+            if (
+                null !== parentNode.rightChild &&
+                value === parentNode.rightChild.data
+            )
+                parentNode.rightChild = null;
+
+            return parentNode;
+        }
+
+        // one-branch node
+        // connect childNode with parentNode and remove node
+        if (null === leftChild || null === rightChild) {
+            if (null !== leftChild) {
+                leftChild.data < parentNode.data
+                    ? (parentNode.leftChild = leftChild)
+                    : (parentNode.rightChild = leftChild);
+            } else {
+                rightChild.data < parentNode.data
+                    ? (parentNode.leftChild = rightChild)
+                    : (parentNode.rightChild = rightChild);
+            }
+
+            nodeToDelete.leftChild = null;
+            nodeToDelete.rightChild = null;
+            nodeToDelete.data = null;
+
+            return parentNode;
+        }
+
+        // two-branch node
+        // it's replaced by the greater closest value and delete the used node
+        if (null !== leftChild && null !== rightChild) {
+            let newNodeToDelete = nodeToDelete.rightChild;
+            let isNode = true;
+
+            while (isNode) {
+                // Look for the closest value
+                null !== newNodeToDelete.leftChild
+                    ? (newNodeToDelete = newNodeToDelete.leftChild)
+                    : (isNode = false);
+            }
+
+            const val = Number(newNodeToDelete.data);
+
+            this.deleteItem(newNodeToDelete.data);
+
+            nodeToDelete.data = val;
+        }
+    }
+
+    #findParentNode(value) {
+        /**
+         * @param {number} value - Input value to look for its parent node within the tree
+         * @returns {Node} Parent node. Null in case the Tree does not include that value or the node does not have a parent node
+         */
+
+        // Root node, does not have parent node
+        if (value === this.#root.data) return null;
+
+        let tmpNode = this.#root;
+
+        while (null !== tmpNode) {
+            if (
+                (null !== tmpNode.leftChild &&
+                    value === tmpNode.leftChild.data) ||
+                (null !== tmpNode.rightChild &&
+                    value === tmpNode.rightChild.data)
+            )
+                return tmpNode;
+
+            tmpNode =
+                value < tmpNode.data ? tmpNode.leftChild : tmpNode.rightChild;
+        }
+
+        return null;
+    }
 
     find(value) {
         /**
@@ -111,17 +211,30 @@ export const Tree = class {
          */
 
         let tmpNode = this.#root;
-        let parentNode;
 
         while (null !== tmpNode) {
             if (value === tmpNode.data) return tmpNode;
 
-            parentNode = tmpNode;
             tmpNode =
                 value < tmpNode.data ? tmpNode.leftChild : tmpNode.rightChild;
         }
 
         return null;
+    }
+
+    static height(node) {
+        /**
+         * returns the given node’s height. Height is defined as the number of edges in the longest path from a given node to a leaf node.
+         */
+        // let tmpNode = node;
+        // let stack = [];
+        // let height = 0;
+        // const checkLeftBranches = (node) => {
+        //     while (null !== tmpNode.leftChild || null !== tmpNode.rightChild) {
+        //         height++;
+        //     }
+        //     return;
+        // };
     }
 
     // Getters and Setters
