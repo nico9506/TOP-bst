@@ -57,4 +57,8 @@ Tree.prettyPrint(treeTest.root);
 //})();
 
 // levelOrder test
-console.log(treeTest.levelOrder());
+// console.log(treeTest.levelOrder());
+
+// inOrder traversal test
+console.log(treeTest.inOrder((value) => console.log(value)));
+

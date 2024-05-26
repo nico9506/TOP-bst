@@ -267,6 +267,41 @@ export const Tree = class {
 		
     }
 
+
+	inOrder(callback) {
+		/**
+		 * In-order tree traversal algorithm
+		 * @param {function} callback - Each node value is provided as input to the
+		 * input function
+		 * @returns {Array} Null if callback is provided, otherwise Array of 
+		 * the visited nodes
+		 */
+
+		if(this.#root === null) return null;
+
+		const checkedNodes = [];
+
+		function inorder(node) {
+			/**
+			 * In-order traversal algorithm using recursion
+			 * @param {Node} node - Node structure
+			 */
+
+			if(node === null) return;
+
+			inorder(node.leftChild);
+			
+			callback ? callback(node.data) : checkedNodes.push(node.data);
+
+			inorder(node.rightChild);
+
+		}
+		
+		inorder(this.#root);
+
+		return callback ? null : checkedNodes;
+	}
+
     static height(node) {
         /**
          * returns the given node’s height. Height is defined as the number of edges in the longest path from a given node to a leaf node.
