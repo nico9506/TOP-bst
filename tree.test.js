@@ -37,24 +37,24 @@ Tree.prettyPrint(treeTest.root);
 // })();
 
 // Delete items
-//(() => {
+// (() => {
 //    console.log(`Test: Delete item --> value=${inputArray[3]}`);
 //    treeTest.deleteItem(inputArray[3]);
-//
+
 //    setTimeout(() => {
 //        console.log(`Test: Delete item --> value=${inputArray[9]}`);
 //        treeTest.deleteItem(inputArray[9]);
 //    }, 1500);
-//
+
 //    setTimeout(() => {
 //        console.log(`Test: Delete item --> value=${inputArray[6]}`);
 //        treeTest.deleteItem(inputArray[6]);
 //    }, 3000);
-//
+
 //    setTimeout(() => {
 //        Tree.prettyPrint(treeTest.root);
 //    }, 4500);
-//})();
+// })();
 
 // levelOrder test
 // console.log(treeTest.levelOrder());
@@ -71,8 +71,29 @@ Tree.prettyPrint(treeTest.root);
 //console.log(treeTest.postOrder((value) => console.log(value)));
 
 // height Test
-//console.log(Tree.height(treeTest.root.leftChild.leftChild.rightChild));
+// console.log(Tree.height(treeTest.root));
+// console.log(Tree.height(treeTest.root.rightChild));
+// console.log(Tree.height(treeTest.root.leftChild.rightChild));
+// console.log(Tree.height(treeTest.root.leftChild.leftChild.rightChild));
 
 // depth test
-console.log(treeTest.depth(treeTest.root.leftChild));
-console.log(treeTest.depth(treeTest.root.leftChild.leftChild));
+// console.log(treeTest.depth(treeTest.root.leftChild));
+// console.log(treeTest.depth(treeTest.root.leftChild.leftChild));
+
+// isBalanced Test
+// (() => {
+//     console.log(treeTest.isBalanced());
+
+//     console.log(`Test: Delete item --> value=${inputArray[0]}`);
+//     treeTest.deleteItem(inputArray[0]);
+
+//     setTimeout(() => {
+//         console.log(`Test: Delete item --> value=${inputArray[1]}`);
+//         treeTest.deleteItem(inputArray[1]);
+//     }, 1500);
+
+//     setTimeout(() => {
+//         Tree.prettyPrint(treeTest.root);
+//         console.log(treeTest.isBalanced());
+//     }, 3000);
+// })();

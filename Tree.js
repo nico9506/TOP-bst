@@ -289,7 +289,7 @@ export const Tree = class {
 
             inorder(node.leftChild);
 
-            callback ? callback(node.data) : checkedNodes.push(node.data);
+            callback ? callback(node) : checkedNodes.push(node.data);
 
             inorder(node.rightChild);
         }
@@ -317,9 +317,9 @@ export const Tree = class {
              * @param {Node} node - Node structure
              */
 
-            if (node === null) return;
+            if (node === null) return null;
 
-            callback ? callback(node.data) : checkedNodes.push(node.data);
+            callback ? callback(node) : checkedNodes.push(node.data);
 
             preorder(node.leftChild);
 
@@ -355,7 +355,7 @@ export const Tree = class {
 
             postorder(node.rightChild);
 
-            callback ? callback(node.data) : checkedNodes.push(node.data);
+            callback ? callback(node) : checkedNodes.push(node.data);
         }
 
         postorder(this.#root);
@@ -372,8 +372,8 @@ export const Tree = class {
 
         if (node === null) return null;
 
-        const leftH = this.height(node.leftChild);
-        const rightH = this.height(node.rightChild);
+        const leftH = Tree.height(node.leftChild);
+        const rightH = Tree.height(node.rightChild);
 
         return Math.max(leftH, rightH) + 1;
     }
@@ -401,6 +401,32 @@ export const Tree = class {
         }
 
         return depth;
+    }
+
+    isBalanced() {
+        /**
+         * A balanced tree is one where the difference between heights of the left subtree and the right subtree of every node is not more than 1.
+         * @returns {boolean} true if the tree is balanced,
+         * otherwise false
+         */
+
+        let isBalanced = true;
+
+        this.preOrder((node) => {
+            if (null !== node) {
+                if (
+                    Math.abs(
+                        Tree.height(node.leftChild) -
+                            Tree.height(node.rightChild)
+                    ) > 1
+                ) {
+                    isBalanced = false;
+                    return;
+                }
+            }
+        });
+
+        return isBalanced;
     }
 
     // Getters and Setters
