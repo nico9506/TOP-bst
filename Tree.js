@@ -222,6 +222,51 @@ export const Tree = class {
         return null;
     }
 
+    levelOrder(callback) {
+        /**
+         * Traverse the tree in breadth-first level order and provide each node as an 
+	 * argument to the callback. As a result, the callback will perform an operation 
+	 * on each node following the order in which they are traversed.
+         * @param {function} callback - (Optional) Function used to process every node value
+         * @returns callback output, otherwise returns an array of values if no callback 
+	 * function is provided
+         */
+
+	    if (this.#root === null) return null;
+
+	    let tmpNode = this.#root;
+
+	    const checkedNodes = [];
+	    const q = [];
+	   
+	    // Push the first node in the queue
+	    q.push(tmpNode);
+
+	    // Loop is executed if there is at least one listed node to process
+	    while(q.length > 0) {
+		    tmpNode = q[0];
+
+		    if(tmpNode.leftChild !== null) q.push(tmpNode.leftChild);
+		    if(tmpNode.rightChild !== null) q.push(tmpNode.rightChild);
+
+		    if(callback) {
+			    try {
+				    callback(tmpNode.data);
+			    } catch(err) {
+				    console.error(`Error in callback function. /n msg: ${err}`)}
+		    } else {
+			    checkedNodes.push(tmpNode.data);
+		    }
+
+		    // Removes the first element (already checked) in queue
+		    q.shift();
+
+	    }
+
+	    return callback ? null : checkedNodes;
+		
+    }
+
     static height(node) {
         /**
          * returns the given node’s height. Height is defined as the number of edges in the longest path from a given node to a leaf node.

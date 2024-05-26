@@ -37,21 +37,24 @@ Tree.prettyPrint(treeTest.root);
 // })();
 
 // Delete items
-(() => {
-    console.log(`Test: Delete item --> value=${inputArray[3]}`);
-    treeTest.deleteItem(inputArray[3]);
+//(() => {
+//    console.log(`Test: Delete item --> value=${inputArray[3]}`);
+//    treeTest.deleteItem(inputArray[3]);
+//
+//    setTimeout(() => {
+//        console.log(`Test: Delete item --> value=${inputArray[9]}`);
+//        treeTest.deleteItem(inputArray[9]);
+//    }, 1500);
+//
+//    setTimeout(() => {
+//        console.log(`Test: Delete item --> value=${inputArray[6]}`);
+//        treeTest.deleteItem(inputArray[6]);
+//    }, 3000);
+//
+//    setTimeout(() => {
+//        Tree.prettyPrint(treeTest.root);
+//    }, 4500);
+//})();
 
-    setTimeout(() => {
-        console.log(`Test: Delete item --> value=${inputArray[9]}`);
-        treeTest.deleteItem(inputArray[9]);
-    }, 1500);
-
-    setTimeout(() => {
-        console.log(`Test: Delete item --> value=${inputArray[6]}`);
-        treeTest.deleteItem(inputArray[6]);
-    }, 3000);
-
-    setTimeout(() => {
-        Tree.prettyPrint(treeTest.root);
-    }, 4500);
-})();
+// levelOrder test
+console.log(treeTest.levelOrder());
