@@ -334,6 +334,37 @@ export const Tree = class {
 		return callback ? null : checkedNodes;
 	}
 
+	postOrder(callback) {
+		/**
+		 * post-order tree traversal
+		 * @param {function} callback - [Optional] function to process each node value
+		 * @returns {Array} Null if callback is provided, otherwise Array of the 
+		 * visited nodes
+		 */
+
+		if(this.#root === null) return null;
+
+		const checkedNodes = [];
+	
+		function postorder(node) {
+			/**
+			 * post-order traversal algorithm using recursion
+			 * @param {Node} node - Node structure
+			 */
+
+			if(node === null) return;
+
+			postorder(node.leftChild);
+
+			postorder(node.rightChild);
+
+			callback ? callback(node.data) : checkedNodes.push(node.data);
+		}
+
+		postorder(this.#root);
+
+		return callback ? null : checkedNodes;
+	}
     static height(node) {
         /**
          * returns the given node’s height. Height is defined as the number of edges in the longest path from a given node to a leaf node.
