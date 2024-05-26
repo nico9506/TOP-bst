@@ -68,4 +68,11 @@ Tree.prettyPrint(treeTest.root);
 
 // postOrder traversal test
 //console.log(treeTest.postOrder());
-console.log(treeTest.postOrder((value) => console.log(value)));
+//console.log(treeTest.postOrder((value) => console.log(value)));
+
+// height Test
+//console.log(Tree.height(treeTest.root.leftChild.leftChild.rightChild));
+
+// depth test
+console.log(treeTest.depth(treeTest.root.leftChild));
+console.log(treeTest.depth(treeTest.root.leftChild.leftChild));

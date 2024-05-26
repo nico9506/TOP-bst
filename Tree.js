@@ -224,160 +224,183 @@ export const Tree = class {
 
     levelOrder(callback) {
         /**
-         * Traverse the tree in breadth-first level order and provide each node as an 
-	 * argument to the callback. As a result, the callback will perform an operation 
-	 * on each node following the order in which they are traversed.
+         * Traverse the tree in breadth-first level order and provide each node as an
+         * argument to the callback. As a result, the callback will perform an operation
+         * on each node following the order in which they are traversed.
          * @param {function} callback - (Optional) Function used to process every node value
-         * @returns callback output, otherwise returns an array of values if no callback 
-	 * function is provided
+         * @returns callback output, otherwise returns an array of values if no callback
+         * function is provided
          */
 
-	    if (this.#root === null) return null;
+        if (this.#root === null) return null;
 
-	    let tmpNode = this.#root;
+        let tmpNode = this.#root;
 
-	    const checkedNodes = [];
-	    const q = [];
-	   
-	    // Push the first node in the queue
-	    q.push(tmpNode);
+        const checkedNodes = [];
+        const q = [];
 
-	    // Loop is executed if there is at least one listed node to process
-	    while(q.length > 0) {
-		    tmpNode = q[0];
+        // Push the first node in the queue
+        q.push(tmpNode);
 
-		    if(tmpNode.leftChild !== null) q.push(tmpNode.leftChild);
-		    if(tmpNode.rightChild !== null) q.push(tmpNode.rightChild);
+        // Loop is executed if there is at least one listed node to process
+        while (q.length > 0) {
+            tmpNode = q[0];
 
-		    if(callback) {
-			    try {
-				    callback(tmpNode.data);
-			    } catch(err) {
-				    console.error(`Error in callback function. /n msg: ${err}`)}
-		    } else {
-			    checkedNodes.push(tmpNode.data);
-		    }
+            if (tmpNode.leftChild !== null) q.push(tmpNode.leftChild);
+            if (tmpNode.rightChild !== null) q.push(tmpNode.rightChild);
 
-		    // Removes the first element (already checked) in queue
-		    q.shift();
+            if (callback) {
+                try {
+                    callback(tmpNode.data);
+                } catch (err) {
+                    console.error(`Error in callback function. /n msg: ${err}`);
+                }
+            } else {
+                checkedNodes.push(tmpNode.data);
+            }
 
-	    }
+            // Removes the first element (already checked) in queue
+            q.shift();
+        }
 
-	    return callback ? null : checkedNodes;
-		
+        return callback ? null : checkedNodes;
     }
 
+    inOrder(callback) {
+        /**
+         * In-order tree traversal algorithm
+         * @param {function} callback - Each node value is provided as input to the
+         * input function
+         * @returns {Array} Null if callback is provided, otherwise Array of
+         * the visited nodes
+         */
 
-	inOrder(callback) {
-		/**
-		 * In-order tree traversal algorithm
-		 * @param {function} callback - Each node value is provided as input to the
-		 * input function
-		 * @returns {Array} Null if callback is provided, otherwise Array of 
-		 * the visited nodes
-		 */
+        if (this.#root === null) return null;
 
-		if(this.#root === null) return null;
+        const checkedNodes = [];
 
-		const checkedNodes = [];
+        function inorder(node) {
+            /**
+             * In-order traversal algorithm using recursion
+             * @param {Node} node - Node structure
+             */
 
-		function inorder(node) {
-			/**
-			 * In-order traversal algorithm using recursion
-			 * @param {Node} node - Node structure
-			 */
+            if (node === null) return;
 
-			if(node === null) return;
+            inorder(node.leftChild);
 
-			inorder(node.leftChild);
-			
-			callback ? callback(node.data) : checkedNodes.push(node.data);
+            callback ? callback(node.data) : checkedNodes.push(node.data);
 
-			inorder(node.rightChild);
+            inorder(node.rightChild);
+        }
 
-		}
-		
-		inorder(this.#root);
+        inorder(this.#root);
 
-		return callback ? null : checkedNodes;
-	}
+        return callback ? null : checkedNodes;
+    }
 
-	preOrder(callback) {
-		/**
-		 * Pre-order tree traversal
-		 * @param {function} callback - [Optional] function to process each node value
-		 * @returns {Array} Null if callback is provided, otherwise Array of the 
-		 * visited nodes
-		 */
+    preOrder(callback) {
+        /**
+         * Pre-order tree traversal
+         * @param {function} callback - [Optional] function to process each node value
+         * @returns {Array} Null if callback is provided, otherwise Array of the
+         * visited nodes
+         */
 
-		if(this.#root === null) return null;
+        if (this.#root === null) return null;
 
-		const checkedNodes = [];
-	
-		function preorder(node) {
-			/**
-			 * Pre-order traversal algorithm using recursion
-			 * @param {Node} node - Node structure
-			 */
+        const checkedNodes = [];
 
-			if(node === null) return;
+        function preorder(node) {
+            /**
+             * Pre-order traversal algorithm using recursion
+             * @param {Node} node - Node structure
+             */
 
-			callback ? callback(node.data) : checkedNodes.push(node.data);
-			
-			preorder(node.leftChild);
+            if (node === null) return;
 
-			preorder(node.rightChild);
-		}
+            callback ? callback(node.data) : checkedNodes.push(node.data);
 
-		preorder(this.#root);
+            preorder(node.leftChild);
 
-		return callback ? null : checkedNodes;
-	}
+            preorder(node.rightChild);
+        }
 
-	postOrder(callback) {
-		/**
-		 * post-order tree traversal
-		 * @param {function} callback - [Optional] function to process each node value
-		 * @returns {Array} Null if callback is provided, otherwise Array of the 
-		 * visited nodes
-		 */
+        preorder(this.#root);
 
-		if(this.#root === null) return null;
+        return callback ? null : checkedNodes;
+    }
 
-		const checkedNodes = [];
-	
-		function postorder(node) {
-			/**
-			 * post-order traversal algorithm using recursion
-			 * @param {Node} node - Node structure
-			 */
+    postOrder(callback) {
+        /**
+         * post-order tree traversal
+         * @param {function} callback - [Optional] function to process each node value
+         * @returns {Array} Null if callback is provided, otherwise Array of the
+         * visited nodes
+         */
 
-			if(node === null) return;
+        if (this.#root === null) return null;
 
-			postorder(node.leftChild);
+        const checkedNodes = [];
 
-			postorder(node.rightChild);
+        function postorder(node) {
+            /**
+             * post-order traversal algorithm using recursion
+             * @param {Node} node - Node structure
+             */
 
-			callback ? callback(node.data) : checkedNodes.push(node.data);
-		}
+            if (node === null) return;
 
-		postorder(this.#root);
+            postorder(node.leftChild);
 
-		return callback ? null : checkedNodes;
-	}
+            postorder(node.rightChild);
+
+            callback ? callback(node.data) : checkedNodes.push(node.data);
+        }
+
+        postorder(this.#root);
+
+        return callback ? null : checkedNodes;
+    }
+
     static height(node) {
         /**
-         * returns the given node’s height. Height is defined as the number of edges in the longest path from a given node to a leaf node.
+         * @param {Node} node - Node structure
+         * @returns {number} the given node’s height. Height is defined as the number
+         * of edges in the longest path from a given node to a leaf node.
          */
-        // let tmpNode = node;
-        // let stack = [];
-        // let height = 0;
-        // const checkLeftBranches = (node) => {
-        //     while (null !== tmpNode.leftChild || null !== tmpNode.rightChild) {
-        //         height++;
-        //     }
-        //     return;
-        // };
+
+        if (node === null) return null;
+
+        const leftH = this.height(node.leftChild);
+        const rightH = this.height(node.rightChild);
+
+        return Math.max(leftH, rightH) + 1;
+    }
+
+    depth(node) {
+        /**
+         * @param {Node} node - Node structure
+         * @returns {number} the given's node depth.
+         * Depth is defined as the number of edges
+         * in the path from a given node to the tree’s root node.
+         */
+
+        if (null === node) return null;
+        if (null === this.find(node.data)) return null;
+
+        let depth = 1;
+        let tmpNode = this.#root;
+
+        while (node.data !== tmpNode.data) {
+            tmpNode =
+                node.data < tmpNode.data
+                    ? tmpNode.leftChild
+                    : tmpNode.rightChild;
+            depth++;
+        }
+
+        return depth;
     }
 
     // Getters and Setters
