@@ -251,7 +251,7 @@ export const Tree = class {
 
             if (callback) {
                 try {
-                    callback(tmpNode.data);
+                    callback(tmpNode);
                 } catch (err) {
                     console.error(`Error in callback function. /n msg: ${err}`);
                 }
@@ -405,7 +405,8 @@ export const Tree = class {
 
     isBalanced() {
         /**
-         * A balanced tree is one where the difference between heights of the left subtree and the right subtree of every node is not more than 1.
+         * A balanced tree is one where the difference between heights of the
+         * left subtree and the right subtree of every node is not more than 1.
          * @returns {boolean} true if the tree is balanced,
          * otherwise false
          */
@@ -427,6 +428,17 @@ export const Tree = class {
         });
 
         return isBalanced;
+    }
+
+    rebalance() {
+        /**
+         * Rebalances an unbalanced tree. A balanced tree is one where the
+         * difference between heights of the
+         * left subtree and the right subtree of every node is not more than 1.
+         */
+
+        this.#root = this.#buildTree(this.levelOrder());
+        console.log(`Tree re-balanced`);
     }
 
     // Getters and Setters

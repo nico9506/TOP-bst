@@ -80,20 +80,26 @@ Tree.prettyPrint(treeTest.root);
 // console.log(treeTest.depth(treeTest.root.leftChild));
 // console.log(treeTest.depth(treeTest.root.leftChild.leftChild));
 
-// isBalanced Test
-// (() => {
-//     console.log(treeTest.isBalanced());
+// isBalanced and rebalanced Test
+(() => {
+    console.log(treeTest.isBalanced()); // true
 
-//     console.log(`Test: Delete item --> value=${inputArray[0]}`);
-//     treeTest.deleteItem(inputArray[0]);
+    console.log(`Test: Delete item --> value=${inputArray[0]}`);
+    treeTest.deleteItem(inputArray[0]);
 
-//     setTimeout(() => {
-//         console.log(`Test: Delete item --> value=${inputArray[1]}`);
-//         treeTest.deleteItem(inputArray[1]);
-//     }, 1500);
+    setTimeout(() => {
+        console.log(`Test: Delete item --> value=${inputArray[1]}`);
+        treeTest.deleteItem(inputArray[1]);
+    }, 1500);
 
-//     setTimeout(() => {
-//         Tree.prettyPrint(treeTest.root);
-//         console.log(treeTest.isBalanced());
-//     }, 3000);
-// })();
+    setTimeout(() => {
+        Tree.prettyPrint(treeTest.root);
+        console.log(treeTest.isBalanced()); // false
+    }, 3000);
+
+    setTimeout(() => {
+        treeTest.rebalance();
+        Tree.prettyPrint(treeTest.root);
+        console.log(treeTest.isBalanced());
+    }, 4500);
+})();
