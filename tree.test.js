@@ -60,5 +60,8 @@ Tree.prettyPrint(treeTest.root);
 // console.log(treeTest.levelOrder());
 
 // inOrder traversal test
-console.log(treeTest.inOrder((value) => console.log(value)));
+// console.log(treeTest.inOrder((value) => console.log(value)));
 
+// preOrder traversal test
+console.log(treeTest.preOrder());
+//console.log(treeTest.preOrder((value) => console.log(value)));
